@@ -49,8 +49,8 @@ def userSellector():
         mainMenu()
     print('Available users:')
     count = 0
-    for user in users:
-        print(str(count)+':',user)
+    for i in range(len(users)):
+        print(str(i)+':',users[i])
         count =+ 1
     selectedUser = input('Select user: ')
     if selectedUser == 'exit':
