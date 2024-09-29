@@ -1,11 +1,15 @@
 import requests
-import os
+import os, platform
 import time
 cwd = os.getcwd()
 path = 'c:/'
 oldPath = 'c:/'
+osName = platform.system()
 
-clear = lambda: os.system('cls')
+if osName == 'Windows':
+    clear = lambda: os.system('cls')
+else:
+    clear = lambda: os.system('clear')
 
 url = 'https://olive-walls-cough-100-999-111-93.loca.lt/'
 
@@ -37,25 +41,23 @@ def sellector():
 
 def userSellector():
     clear()
-
+    global curUser
     try:
         users = get('users').json()
     except:
         print('nope')
         mainMenu()
     print('Available users:')
+    count = 0
     for user in users:
-        print(user)
+        print(str(count)+':',user)
+        count =+ 1
     selectedUser = input('Select user: ')
     if selectedUser == 'exit':
         return
-    userFind = False
-    for user in users:
-        if user == selectedUser:
-            global curUser
-            curUser = user
-            userFind = True
-    if userFind == False:
+    try:
+        curUser = users[int(selectedUser)]
+    except:
         print('Not founded user!')
         input('')
         userSellector()
