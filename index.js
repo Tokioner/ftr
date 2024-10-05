@@ -8,7 +8,7 @@ app.use(fileUpload());
 
 app.use(express.static('public'));
 
-const PORT = 80
+const PORT = 3000
 const HOST = 'localhost'
 
 var users = []
